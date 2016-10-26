@@ -1,0 +1,35 @@
+{
+  "name": "@bongione/seneca-app-token-service",
+  "version": "0.1.0",
+  "description": "Seneca plugin to verify app tokens and token generator",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-register --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mindiply/seneca-app-token-service.git"
+  },
+  "keywords": [
+    "seneca",
+    "microservice"
+  ],
+  "author": "Paolo Ferdinando Bongiovanni <paolo.bongiovanni@mindiply.com>",
+  "license": "\tApache-2.0",
+  "bugs": {
+    "url": "https://github.com/mindiply/seneca-app-token-service/issues"
+  },
+  "homepage": "https://github.com/mindiply/seneca-app-token-service#readme",
+  "devDependencies": {
+    "babel-register": "^6.16.3",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "seneca": "^3.2.1"
+  },
+  "peerDependencies": {
+    "seneca": "3.x"
+  },
+  "dependencies": {
+    "moment": "^2.15.2"
+  }
+}
