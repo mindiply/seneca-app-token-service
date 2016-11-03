@@ -55,7 +55,7 @@ const TOKEN_EXPIRATION_SECONDS = 60
 
 describe('Application token generation', function () {
 
-    let {createAppToken, userScopesByToken} = require('../lib').appTokens({redis_client, log, expiration_seconds : TOKEN_EXPIRATION_SECONDS})
+    let {createAppToken, userScopesByToken} = require('../src').appTokens({redis_client, log, expiration_seconds : TOKEN_EXPIRATION_SECONDS})
 
     it('Generate and retrieve a token for test zone', function() {
 
@@ -69,9 +69,10 @@ describe('Application token generation', function () {
             .then(token_data => {
                 expect(Object.keys(token_data)).to.have.length(2)
                 expect(token_data.token).to.be.a('string')
-                expect(token_data.expiration).to.be.a('date')
-                expect(token_data.expiration.valueOf()).to.be.above(expires_after.valueOf())
-                expect(token_data.expiration.valueOf()).to.be.below(expires_before.valueOf())
+                expect(token_data.expires_in_s).to.be.a('number')
+                let token_expiration=moment().add(token_data.expires_in_s,'seconds')
+                expect(token_expiration.valueOf()).to.be.above(expires_after.valueOf())
+                expect(token_expiration.valueOf()).to.be.below(expires_before.valueOf())
                 Object.assign(created_token_data, token_data)
                 return userScopesByToken(token_data.token)
             })
