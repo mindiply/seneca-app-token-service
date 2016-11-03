@@ -51,7 +51,7 @@ let log = {
     }
 }
 
-const TOKEN_EXPIRATION_SECONDS = 60
+const TOKEN_EXPIRATION_SECONDS = 600
 
 describe('Application token generation', function () {
 
@@ -70,7 +70,7 @@ describe('Application token generation', function () {
                 expect(Object.keys(token_data)).to.have.length(2)
                 expect(token_data.token).to.be.a('string')
                 expect(token_data.expires_in_s).to.be.a('number')
-                let token_expiration=moment().add(token_data.expires_in_s,'seconds')
+                let token_expiration = moment().utc().add(token_data.expires_in_s,'seconds')
                 expect(token_expiration.valueOf()).to.be.above(expires_after.valueOf())
                 expect(token_expiration.valueOf()).to.be.below(expires_before.valueOf())
                 Object.assign(created_token_data, token_data)
