@@ -1,8 +1,9 @@
 {
   "name": "@bongione/seneca-app-token-service",
-  "version": "0.2.1",
+  "version": "0.2.3",
   "description": "Seneca plugin to verify app tokens and token generator",
   "main": "lib/index.js",
+  "files": ["lib"],
   "scripts": {
     "clean": "rimraf lib",
     "build": "babel src --out-dir lib",
