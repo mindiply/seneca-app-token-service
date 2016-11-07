@@ -45,7 +45,7 @@ describe('Seneca verification token service', function () {
 
     let seneca = require('seneca')()
     let {senecaIdentityService} = require('../src')
-    seneca.use(senecaIdentityService, { deserializeUser : testDeserializeUser,  app_tokens : {userScopeByToken : testUserScopeByToken}})
+    seneca.use(senecaIdentityService, { deserializeUser : testDeserializeUser,  app_tokens : {userScopesByToken : testUserScopeByToken}})
 
     it('Look for and return test user', function(done) {
         let msg = { role : 'identity', action : 'verify_token', token : test_token_data.token}

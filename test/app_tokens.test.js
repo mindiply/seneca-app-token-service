@@ -18,6 +18,13 @@ function createMockRedisClient() {
             })
             return p
         },
+        rpush : (key, ...values) => {
+            let p = new Promise((resolve, reject) => {
+                data[key] = {values : [...values]}
+                setTimeout(() => {resolve(true)}, 50)
+            })
+            return p
+        },
         expire : (key, expiration) => {
             let p = new Promise((resolve, reject) => {
                 data[key] = Object.assign({}, data[key], {expiration})

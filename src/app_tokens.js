@@ -47,7 +47,7 @@ module.exports = (options = {}) => {
                         expires_in_s: expirationSeconds
                     }
                     resolve(Promise.all([
-                        redisClient.lpush(tokenKey, userId, ...scopes),
+                        redisClient.rpush(tokenKey, userId, ...scopes),
                         redisClient.expire(tokenKey, expirationSeconds)
                     ]).then(results => {
                         return tokenData

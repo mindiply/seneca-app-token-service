@@ -6,7 +6,9 @@
 module.exports = function (options = {}) {
     if (this && this.log && this.log.info) this.log.info('Adding auth seneca services')
     let {deserializeUser} = options
-    let {userScopeByToken} = options.app_tokens || require('./app_tokens')
+    if (!deserializeUser) throw new Error('The deserializeUser option must be defined')
+    if (!options.app_tokens && !options.redis_client) throw new Error('The redis_client options must be defined')
+    let {userScopesByToken} = options.app_tokens || (require('./app_tokens')({log: this.log, redis_client: options.redis_client}))
 
     this.add({
         role: 'identity',
@@ -14,7 +16,7 @@ module.exports = function (options = {}) {
     }, (msg, respond) => {
         let { token } = msg
         let response = {}
-        userScopeByToken(token)
+        userScopesByToken(token)
             .then(tokenData => {
                 if (!tokenData || !tokenData.scopes || !tokenData.user_id) throw new Error('No valid token data found')
                 response.scopes = tokenData.scopes
